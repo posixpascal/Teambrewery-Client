@@ -1,0 +1,122 @@
+<div class="col-md-4 col-sm-4">
+    <div class="card-container">
+        <div class="card">
+            <div class="front">
+                <div class="cover">
+
+                </div>
+                <div class="user">
+                    <img ng-src="{{pokemon.sprite}}">
+                </div>
+                <div class="content">
+                    <div class="main">
+                        <h3 class="name">{{pokemon.name}}</h3>
+                        <p class="typing">
+                            <pokemon-typing />
+                        </p>
+                        <hr />
+                        <stat-distribution />
+                    </div>
+                    <div class="footer">
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end front panel -->
+            <div class="back">
+                <div class="header">
+                    <h5 class="motto">
+                        <img ng-src="{{pokemon.sprite}}" style="height: 25px; width: auto;"><br/>
+                        {{pokemon.name}}
+                        </h5>
+                </div> 
+                <div class="content">
+                    <div class="main">
+                        <div ng-if="pokemon.moves.length">
+                            <table class="table move-table">
+                                  <tr>
+                                    <td>
+                                        <div class="type text-center" ng-class='pokemon.moves[0].type.toLowerCase()' >
+                                            {{pokemon.moves[0].name}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div  class="type text-center" ng-class='pokemon.moves[1].type.toLowerCase()' >
+                                            {{pokemon.moves[1].name}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div  class="type text-center" ng-class='pokemon.moves[2].type.toLowerCase()' >
+                                            {{pokemon.moves[2].name}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div  class="type text-center" ng-class='pokemon.moves[3].type.toLowerCase()' >
+                                            {{pokemon.moves[3].name}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div ng-if="!!pokemon.moveset.item">
+                                <span>{{pokemon.moveset.item.name}} <br/>
+                                    <small class="text-muted item-description">{{pokemon.moveset.item.desc}}</small>
+                                </span>
+                            </div>
+                            
+                            <div ng-if="!!pokemon.moveset.ev_spread">
+                                <table class="table table-tiny stat-table move-table" style="border:none">
+                                    <tbody>
+                                        <tr>
+                                            <td>HP</td>
+                                            <td>ATK</td>
+                                            <td>DEF</td>
+                                            <td>SATK</td>
+                                            <td>SDEF</td>
+                                            <td>SPE</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                {{pokemon.moveset.ev_spread.hp}}
+                                            </td>
+                                            <td>
+                                                {{pokemon.moveset.ev_spread.atk}}<span ng-if="pokemon.moveset.nature.patk == 1.1">+</span><span ng-if="pokemon.moveset.nature.patk == 0.9">-</span>
+                                            </td>
+                                            <td>
+                                                {{pokemon.moveset.ev_spread.def}}<span ng-if="pokemon.moveset.nature.pdef == 1.1">+</span><span ng-if="pokemon.moveset.nature.pdef == 0.9">-</span>
+                                            </td>
+                                            <td>
+                                                {{pokemon.moveset.ev_spread.spa}}<span ng-if="pokemon.moveset.nature.spatk == 1.1">+</span><span ng-if="pokemon.moveset.nature.spatk == 0.9">-</span>
+                                            </td>
+                                            <td>
+                                                {{pokemon.moveset.ev_spread.spd}}<span ng-if="pokemon.moveset.nature.spdef == 1.1">+</span><span ng-if="pokemon.moveset.nature.spdef == 0.9">-</span>
+                                            </td>
+                                            <td>
+                                                {{pokemon.moveset.ev_spread.spe}}<span ng-if="pokemon.moveset.nature.spe == 1.1">+</span><span ng-if="pokemon.moveset.nature.spe == 0.9">-</span>
+                                            </td>
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div ng-if="!pokemon.moves" class="text-center">
+                            No moveset for {{pokemon.name}} yet.
+                            <br/><br/>
+                            <a ng-click="addMoveset()" class="btn btn-xs btn-primary">Add Moveset</a>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="social-links text-center">
+                       <a ng-click="editPokemon()" class="btn btn-default btn-xs">Edit Pokemon</a>
+                    </div>
+                </div>
+            </div> <!-- end back panel -->
+        </div>
+    </div>
+</div>

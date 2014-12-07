@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <button ng-if="modal.dismissable" type="button" ng-click="$dismiss()" class="close">&times;</button>
+  <h4>Import a Team</h4>
+</div>
+<div class="modal-body">
+     <p>
+         You can import teams from <span class="highlight">Pokemon Showdown</span> and many other Pokemon Simulators as long as they follow<br/>
+         the default convention to describe Pokemon teams. (Check here for an <a href="/help/example_import.txt" target="_blank">example team</a>).
+     </p>
+     
+     <b>Paste your team here.</b>
+     <textarea ng-change="tempTeamPreview = text2team(tempTeam)" ng-model="tempTeam" rows="8" class="form-control"></textarea>
+     
+     <div ng-if="tempTeamPreview">
+         <hr/>
+         <b>Team Preview:</b>
+         
+         <ul class="pokemon-list" ng-repeat="pokemon in tempTeamPreview">
+             <li>{{pokemon.name}}</li>
+         </ul>
+     </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-success" ng-click="setTeam()">Import Team</button>
+</div>

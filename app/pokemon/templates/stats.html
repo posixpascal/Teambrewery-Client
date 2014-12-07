@@ -1,0 +1,59 @@
+<div>
+    <table class="stat-table" style="width: 100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Base</th>
+                <th>Min</th>
+                <th>Max</th>
+                <th>Max+</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-class="{'text-success': pokemon.baseStats.hp >= 100, 'text-danger': pokemon.baseStats.hp < 60}">
+                <td>HP</td>
+                <td>{{pokemon.baseStats.hp}}</td>
+                <td>{{calcStat(pokemon.baseStats.hp, 'hp', 0)}}</td>
+                <td>{{calcStat(pokemon.baseStats.hp, 'hp', 255)}}</td>
+                <td>-</td>
+            </tr>
+            <tr ng-class="{'text-success': pokemon.baseStats.atk >= 105, 'text-danger': pokemon.baseStats.atk < 50}">
+                <td>ATK</td>
+               <td>{{pokemon.baseStats.atk}}</td>
+               <td>{{calcStat(pokemon.baseStats.atk, 'atk', 0)}}</td>
+               <td>{{calcStat(pokemon.baseStats.atk, 'atk', 255)}}</td>
+               <td>{{calcStat(pokemon.baseStats.atk, 'atk', 255, 1.1)}}</td>
+            </tr>
+            <tr ng-class="{'text-success': pokemon.baseStats.def >= 105, 'text-danger': pokemon.baseStats.def < 50}">
+                <td>DEF</td>
+                <td>{{pokemon.baseStats.def}}</td>
+                <td>{{calcStat(pokemon.baseStats.def, 'def', 0)}}</td>
+                <td>{{calcStat(pokemon.baseStats.def, 'def', 255)}}</td>
+                <td>{{calcStat(pokemon.baseStats.def, 'def', 255, 1.1)}}</td>
+            </tr>
+            <tr ng-class="{'text-success': pokemon.baseStats.spa >= 105, 'text-danger': pokemon.baseStats.spa < 50}">
+                <td>SPA</td>
+                <td>{{pokemon.baseStats.spa}}</td>
+                <td>{{calcStat(pokemon.baseStats.spa, 'spa', 0)}}</td>
+                <td>{{calcStat(pokemon.baseStats.spa, 'spa', 255)}}</td>
+                <td>{{calcStat(pokemon.baseStats.spa, 'spa', 255, 1.1)}}</td>
+            </tr>
+            <tr ng-class="{'text-success': pokemon.baseStats.spd >= 105, 'text-danger': pokemon.baseStats.spd < 50}">
+                <td>SPD</td>
+                <td>{{pokemon.baseStats.spd}}</td>
+                <td>{{calcStat(pokemon.baseStats.spd, 'spd', 0)}}</td>
+                <td>{{calcStat(pokemon.baseStats.spd, 'spd', 255)}}</td>
+                <td>{{calcStat(pokemon.baseStats.spd, 'spd', 255, 1.1)}}</td>
+            </tr>
+            <tr ng-class="{'text-success': pokemon.baseStats.spe >= 105, 'text-danger': pokemon.baseStats.spe < 50}">
+                <td>SPE</td>
+                <td>{{pokemon.baseStats.spe}}</td>
+                <td>{{calcStat(pokemon.baseStats.spe, 'spe', 0)}}</td>
+                <td>{{calcStat(pokemon.baseStats.spe, 'spe', 255)}}</td>
+                <td>{{calcStat(pokemon.baseStats.spe, 'spe', 255, 1.1)}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+</div>

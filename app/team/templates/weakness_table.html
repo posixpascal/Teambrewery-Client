@@ -1,0 +1,180 @@
+<div class="well" style="padding: 15px">
+   
+   <div class="alert alert-info" role="alert">
+     <b>Hey</b>, did you know that you can personalize your table chart? <br/>Your changes will be saved to your computer, so when you visit us next time, you don't have to reconfigure all over again. :)
+   </div>
+        
+    </p>
+    
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title text-center">
+            <a data-toggle="collapse" data-parent="#accordion" ng-click="toggleCollapse('#collapseOne')" aria-expanded="true" aria-controls="collapseOne">
+              Configure your type chart
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+               <form>
+                   <div class="row">
+                       
+                        
+                        <div class="col-xs-12 col-sm-4">
+                            <b>Table options</b>
+                            <ul class="no-list checkbox-list">
+                                <li>Table Mode: <ul class="no-list">
+                                    <li><input type="radio" name="tableMode" ng-model="customSettings.typeChart.tableMode" value="types"> Prioritize Types</li>
+                                    <li><input type="radio" name="tableMode" ng-model="customSettings.typeChart.tableMode" value="pokemon"> Prioritize Pokemon</li>
+                                    </ul>
+                                </li>
+                                <li><input type="checkbox" ng-model="customSettings.typeChart.showPokemon"> Show Pokemon images</li>
+                            </ul>
+                         </div>
+                         
+                         <div class="col-xs-12 col-sm-4">
+                             <b>Configure Types Table</b>
+                             <ul class="no-list checkbox-list">
+                                 <li><input type="checkbox" ng-model="customSettings.typeChart.rows.immunity"> Immunity</li>
+                                 <li><input type="checkbox" ng-model="customSettings.typeChart.rows.quadResistant"> Quad Resistant</li>
+                                 <li><input type="checkbox" ng-model="customSettings.typeChart.rows.resistant"> Resistant</li>
+                                 <li><input type="checkbox" ng-model="customSettings.typeChart.rows.neutral"> Neutral</li>
+                                 <li><input type="checkbox" ng-model="customSettings.typeChart.rows.effective"> Effective</li>
+                                 <li><input type="checkbox" ng-model="customSettings.typeChart.rows.superEffective"> Super Effective</li>
+                             </ul>
+                          </div>
+                          
+                          <div class="col-xs-12 col-sm-4">
+                              <b>Configure Pokemon Table</b>
+                                - no settings yet
+                           </div>
+                    </div>
+                   <a ng-click="saveSettings(customSettings)" class="btn btn-success btn-xs">Save settings</a>
+               </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+    <table class="pokemon-table table table-bordered" ng-if="settings.typeChart.tableMode == 'pokemon'">
+        <thead>
+            <tr>
+                <td>Pokemon</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="pokemon in team">
+                <td class="text-center">
+                    <div>
+                        <img style="max-height: 60px" ng-if="settings.typeChart.showPokemon" ng-src="/assets/pokemon_sprites/{{pokemon.image}}"/>
+                        <span ng-if="!settings.typeChart.showPokemon">
+                            {{pokemon.name}}
+                        </span>
+                    </div>
+                </td>
+                <td ng-repeat="weakness in getWeaknessesFor(pokemon)" ng-class="weakness.toLowerCase()">
+
+                      <div class="text-center">{{weakness}}</div>
+                      <div ng-if="teamResistance(weakness).length > 1"><small>Resistances in team:</small> <br/>
+                          <span ng-repeat="teamPokemon in teamResistance(weakness)"  ng-if="teamPokemon.name != pokemon.name">
+                              <img style="max-height: 30px" ng-if="settings.typeChart.showPokemon" ng-src="/assets/pokemon_sprites/{{teamPokemon.image}}"/>
+                              <span ng-if="!settings.typeChart.showPokemon">
+                                  {{teamPokemon.name}}<br/>
+                              </span>
+                          </span>
+                      </div>
+                      <div ng-if="teamWeaknesses(weakness).length > 1"><small>Pokemon also weak to {{weakness}}:</small> <br/>
+                          <span ng-repeat="teamPokemon in teamWeaknesses(weakness)" ng-if="teamPokemon.name != pokemon.name">
+                              <img style="max-height: 30px" ng-if="settings.typeChart.showPokemon" ng-src="/assets/pokemon_sprites/{{teamPokemon.image}}"/>
+                              <span ng-if="!settings.typeChart.showPokemon">
+                                  {{teamPokemon.name}}<br/>
+                              </span>
+                          </span>
+                      </div>
+                      <div ng-if="teamImmunities(weakness).length > 1"><small>Immune to {{weakness}}:</small> <br/>
+                          <span ng-repeat="teamPokemon in teamImmunities(weakness)"  ng-if="teamPokemon.name != pokemon.name">
+                              <img style="max-height: 30px" ng-if="settings.typeChart.showPokemon" ng-src="/assets/pokemon_sprites/{{teamPokemon.image}}"/>
+                              <span ng-if="!settings.typeChart.showPokemon">
+                                  {{teamPokemon.name}}<br/>
+                              </span>
+                          </span>
+                      </div>
+                          
+
+
+                </td>
+                
+            </tr>
+        </tbody>
+    </table>
+    
+    
+    <table class="type-table table table-bordered" ng-if="settings.typeChart.tableMode == 'types'">
+        <thead>
+            <tr>
+                <td>Typing</td>
+                <td ng-if="settings.typeChart.rows.immunity">Immunity</td>
+                <td ng-if="settings.typeChart.rows.quadResistant">Quad Resistant (1/4x)</td>
+                <td ng-if="settings.typeChart.rows.resistant">Resistant (1/2x)</td>
+                <td ng-if="settings.typeChart.rows.neutral">Neutral</td>
+                <td ng-if="settings.typeChart.rows.effective">Effective (2x)</td>
+                <td ng-if="settings.typeChart.rows.superEffective">Super Effective (4x)</td>
+            </tr>
+        </thead>
+    
+        <tbody >
+            <tr ng-repeat="type in types" ng-if="type != 'Bird'" ng-class="type.toLowerCase()">
+                <td>{{type}}</td>
+                <td ng-if="settings.typeChart.rows.immunity">
+                    <div ng-repeat="pokemon in weakness[type]['immunity']">
+                        <img ng-if="settings.typeChart.showPokemon" ng-src="/assets/pokemon_sprites/{{pokemon.image}}"/>
+                        <span ng-if="!settings.typeChart.showPokemon">
+                            {{pokemon.name}}
+                        </span>
+                    </div>
+                </td>
+                <td ng-if="settings.typeChart.rows.quadResistant">
+                    <span ng-repeat="pokemon in weakness[type]['quadResist']">
+                        <img ng-if="settings.typeChart.showPokemon"  ng-src="/assets/pokemon_sprites/{{pokemon.image}}"/>
+                        <span ng-if="!settings.typeChart.showPokemon">
+                            {{pokemon.name}}
+                        </span>
+                    </span>
+                </td>
+                <td ng-if="settings.typeChart.rows.resistant">
+                    <span ng-repeat="pokemon in weakness[type]['resist']">
+                        <img ng-if="settings.typeChart.showPokemon"  ng-src="/assets/pokemon_sprites/{{pokemon.image}}"/>
+                        <span ng-if="!settings.typeChart.showPokemon">
+                            {{pokemon.name}}
+                        </span>
+                    </span>
+                </td>
+               <td ng-if="settings.typeChart.rows.neutral">
+                   <span ng-repeat="pokemon in weakness[type]['neutral']">
+                       <img ng-if="settings.typeChart.showPokemon"  ng-src="/assets/pokemon_sprites/{{pokemon.image}}"/>
+                       <span ng-if="!settings.typeChart.showPokemon">
+                           {{pokemon.name}}
+                       </span>
+                   </span>
+               </td>
+               <td ng-if="settings.typeChart.rows.effective">
+                   <span ng-repeat="pokemon in weakness[type]['effective']">
+                       <img ng-if="settings.typeChart.showPokemon" ng-src="/assets/pokemon_sprites/{{pokemon.image}}"/>
+                       <span ng-if="!settings.typeChart.showPokemon">
+                           {{pokemon.name}}
+                       </span>
+                   </span>
+               </td>
+               <td ng-if="settings.typeChart.rows.superEffective">
+                   <span ng-repeat="pokemon in weakness[type]['superEffective']">
+                       <img ng-if="settings.typeChart.showPokemon" ng-src="/assets/pokemon_sprites/{{pokemon.image}}"/>
+                       <span ng-if="!settings.typeChart.showPokemon">
+                           {{pokemon.name}}
+                       </span>
+                   </span>
+               </td>
+            </tr>
+    </table>
+</div>

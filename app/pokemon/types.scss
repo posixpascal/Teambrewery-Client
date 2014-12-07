@@ -1,0 +1,128 @@
+.type {
+
+    padding: 3px 8px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    justify-content: center;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(33, 33, 33, .6);
+}
+
+$types: (
+    bug: (
+        color-top: #a8b820,
+        color-bottom: #8d9a1b,
+        color-border: #616B13
+    ),
+    dark: (
+        color-top: #705848,
+        color-bottom: #513435,
+        color-border: #362A23
+    ),
+    dragon: (
+        color-top: #7038F8,
+        color-bottom: #4c08ef,
+        color-border: #3D07C0
+    ),
+    electric: (
+        color-top: #f8d030,
+        color-bottom: #f0c108,
+        color-border: #C19B07
+    ),
+    fairy: (
+        color-top: #f98cff,
+        color-bottom: #f540ff,
+        color-border: #C10798
+    ),
+    fighting: (
+        color-top: #c03028,
+        color-bottom: #9d2721,
+        color-border: #82211B
+    ),
+    fire: (
+        color-top: #f08030,
+        color-bottom: #dd6610,
+        color-border: #B4530D
+    ),
+    flying: (
+        color-top: #a890f0,
+        color-bottom: #9180c4,
+        color-border: #7762B6
+    ),
+    ghost: (
+        color-top: #705898,
+        color-bottom: #554374,
+        color-border: #413359
+    ),
+    grass: (
+        color-top: #78c850,
+        color-bottom: #5ca935,
+        color-border: #4A892B
+    ),
+    ground: (
+        color-top: #e0c068,
+        color-bottom: #d4a82f,
+        color-border: #AA8623
+    ),
+    ice: (
+        color-top: #98d8d8,
+        color-bottom: #69c6c6,
+        color-border: #45B6B6
+    ),
+    normal: (
+        color-top: #a8a878,
+        color-bottom: #8a8a59,
+        color-border: #79794E
+    ),
+    poison: (
+        color-top: #a040a0,
+        color-bottom: #803380,
+        color-border: #662966
+    ),
+    psychic: (
+        color-top: #f85888,
+        color-bottom: #f61c5d,
+        color-border: #D60945
+    ),
+    rock: (
+        color-top: #8ba038,
+        color-bottom: #93802d,
+        color-border: #746523
+    ),
+    steel: (
+        color-top: #b8b8d0,
+        color-bottom: #9797ba,
+        color-border: #7A7AA7
+    ),
+    water: (
+        color-top: #6890f0,
+        color-bottom: #386ceb,
+        color-border: #1753E3
+    ),
+);
+
+@each $type, $colors in $types {
+    .type.#{$type} {
+        background: -webkit-linear-gradient(map-get($colors, 'color-top'), map-get($colors, 'color-bottom'));
+        background: linear-gradient(map-get($colors, 'color-top'), map-get($colors, 'color-bottom'));
+        border-color: map-get($colors, 'color-border');
+    }
+}
+
+
+
+.type-table {
+    tr td {
+        vertical-align: middle;
+    }
+    img {
+        height: 30px;
+        max-width: 50px;
+    }
+}
+
+.type-table {
+    td {
+        text-align: center;
+    }
+}

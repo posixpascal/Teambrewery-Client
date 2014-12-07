@@ -1,0 +1,32 @@
+<div class="modal-header">
+  <button ng-if="modal.dismissable" type="button" ng-click="$dismiss()" class="close">&times;</button>
+  <h4>Add Pokemon</h4>
+</div>
+<div class="modal-body">
+  <p>Pokemon Name</p>
+  <input type="text" ng-model="newPokemon.name" placeholder="Enter a Pokemon name (Auto-Complete supported)" typeahead="pokemon as pokemon.name for pokemon in getPokemonByName($viewValue)" typeahead-on-select="setActivePokemon($item, $model, $label)" typeahead-loading="loadingLocations" typeahead-wait-ms="300" typeahead-template-url="/app/autocomplete_template.html" class="form-control">
+  
+  <div ng-if="!!activePokemon">
+     <hr />
+     <center>
+         <h3>{{activePokemon.name}}</h3>
+         <img ng-src="/assets/pokemon_sprites/{{activePokemon.image}}">
+         <br />
+         <div class="pokemon-type">
+             <span class="type" ng-class="activePokemon.types[0].toLowerCase()">{{activePokemon.types[0]}}</span>
+             <span ng-if="!!activePokemon.types[1]">
+                 /
+                 <span class="type" ng-class="activePokemon.types[1].toLowerCase()">{{activePokemon.types[1]}}</span>
+             </span>
+         </div>
+     </center>
+     
+     
+      
+      
+      
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-success" ng-click="addPokemon(activePokemon)">Add Pokemon</button>
+</div>

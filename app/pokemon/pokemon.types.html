@@ -1,0 +1,6 @@
+<div class="pokemon-type">
+    <span class="type" ng-class="pokemon.types[0].toLowerCase()">{{pokemon.types[0]}}</span>
+    <span ng-if="!!pokemon.types[1]">
+        <span class="type" ng-class="pokemon.types[1].toLowerCase()">{{pokemon.types[1]}}</span>
+    </span>
+</div>
