@@ -1,0 +1,30 @@
+<div ng-controller="PokemonViewCtrl">
+<div class="header-bar">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-3">
+				<h2>Pick your favorite</h2>
+			</div>
+			<div class="col-xs-12 col-sm-9">
+				<div class="pull-right">
+						<div class="block-center w200">
+							<pagination max-size="10" total-items="180" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+						</div>
+				</div>
+			</div>
+			</div>
+	</div>
+</div>
+
+<div class="container" >
+	<div class="pokemon-list">
+		<pokemon-card ng-repeat="pokemon in pokemons" pokemon="pokemon">
+        </pokemon-card>
+    </div>
+
+		<div class="block-center w200">
+			<pagination max-size="10" total-items="180" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+		</div>
+	</div>
+</div>
+</div>

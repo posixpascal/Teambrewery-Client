@@ -1,0 +1,48 @@
+<div class="header-bar">
+	<div class="container">
+		<h2><a ui-sref="pokedex">&lt; Back</a></h2>
+	</div>
+</div>
+
+<div ng-if="pokemon" class="container">
+	<div class="field-bar">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">
+				<center>
+					<img ng-src="{{pokemon.getSprite()}}" class="thumbnail img-responsive">
+					<h2>{{pokemon.name}}</h2>
+			
+				</center>
+			</div>
+			<div ng-show="pokemon" class="col-xs-12 col-sm-6">
+				<div class="progress_bars">
+					<div class="progress">
+					  <div class="progress-bar progress-bar-striped active" role="progressbar" ng-class="stats.atk.cssclass" ng-style="{'width': evPercentage(pokemon, 'hp')}">HP ({{pokemon.basestats.hp}})
+					  </div>
+					 </div>
+					 <div class="progress">
+					  <div class="progress-bar progress-bar-striped active" role="progressbar" ng-class="stats.atk.cssclass" ng-style="{'width': evPercentage(pokemon, 'atk')}">Attack ({{pokemon.basestats.atk}})
+					  </div>
+					 </div>
+					 <div class="progress">
+					  <div class="progress-bar progress-bar-striped active" role="progressbar" ng-class="stats.def.cssclass" ng-style="{'width': evPercentage(pokemon, 'def')}">Defense ({{pokemon.basestats.def}})
+					  </div>
+					 </div>
+					 <div class="progress">
+					  <div class="progress-bar progress-bar-striped active" role="progressbar" ng-class="stats.spa.cssclass" ng-style="{'width': evPercentage(pokemon, 'spa')}">Special Attack ({{pokemon.basestats.spa}})
+					  </div>
+					 </div>
+					 <div class="progress">
+					  <div class="progress-bar progress-bar-striped active" role="progressbar" ng-class="stats.spd.cssclass" ng-style="{'width': evPercentage(pokemon, 'spd')}">Special Defense ({{pokemon.basestats.spd}})
+					  </div>
+					 </div>
+					 <div class="progress">
+					  <div class="progress-bar progress-bar-striped active" role="progressbar" ng-class="stats.spe.cssclass" ng-style="{'width': evPercentage(pokemon, 'spe')}">Speed ({{pokemon.basestats.spe}})
+					  </div>
+					 </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

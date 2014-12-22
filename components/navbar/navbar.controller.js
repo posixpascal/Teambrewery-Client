@@ -1,17 +1,20 @@
 'use strict';
-
 angular.module('teambreweryApp')
-  .controller('NavbarCtrl', function ($scope, $location) {
+  .controller('NavbarCtrl', ['$scope', '$location', '$auth', function ($scope, $location, $auth) {
+    $scope.$auth = $auth;
+
     $scope.menu = [{
-      'title': 'TeamBuilder',
-      'link': '/teambuilder'
+      'title': 'Teambuilder',
+      'link': '/teams/new'
     },
     {
-        'title': 'All Teams',
-        'link': '/team/all'
+        'title': 'Community Teams',
+        'link': '/teams/community'
     },
-    
-    
+    {
+      'title': 'Pokedex',
+      'link': '/pokedex'
+    }
     
     ];
 
@@ -20,4 +23,4 @@ angular.module('teambreweryApp')
     $scope.isActive = function(route) {
       return route === $location.path();
     };
-  });
+  }]);

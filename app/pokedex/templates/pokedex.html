@@ -1,0 +1,8 @@
+<ui-view>
+	<div class="header-bar">
+		<div class="container">
+			<h2>Pokedex</h2>
+			<input type="text" ng-model="query" placeholder="Search for a Pokemon" typeahead="pokemon as pokemon.name for pokemon in getPokemonByName($viewValue)" typeahead-on-select="setActivePokemon($item, $model, $label)" typeahead-loading="loadingLocations" typeahead-wait-ms="300" typeahead-template-url="/app/autocomplete_template.html"  name="q" class="form-control input-lg">
+		</div>
+	</div>
+</ui-view>

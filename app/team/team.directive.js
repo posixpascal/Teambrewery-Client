@@ -1,14 +1,5 @@
 angular.module("teambreweryApp")
-    .service('Team', ['$http', '$state', function($http, $state){
-        return {
-            save: function(team){
-                var json = JSON.stringify(team);
-                $http.post('/api/team/save', {team: json}).then(function(data){
-                    $state.go('main.saveState', {id: data.data._id});
-                });
-            }
-        } 
-    }]).value('typeChart', {
+    .value('typeChart', {
 "Bug": {
 damageTaken: {
 "Bug": 0,

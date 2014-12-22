@@ -1,0 +1,36 @@
+<div class="header-bar">
+  <div class="container">
+    <h2>Your teams moveset coverage</h2>
+  </div>
+</div>
+<div class="container">
+  <div class="field-bar">
+
+    
+    <div>
+      <table class="table table-bordered table-striped pokemon-table table-condensed">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Physical</th>
+            <th>Special </th>
+          </tr>
+        </thead>   
+        <tbody>
+          <tr ng-repeat="type in types" ng-if="type != 'Bird'">
+            <td style="border-radius: 0;" class="type {{type.toLowerCase()}}">
+              <span>{{type}}</span>
+            </td> 
+            <td class="cell-number" ng-class='{"success": team.getMovesetCoverage(type, "Physical") > 0}'>
+              {{team.getMovesetCoverage(type, "Physical")}}
+            </td>
+            <td class="cell-number" ng-class='{"success": team.getMovesetCoverage(type, "Special") > 0}'>
+              {{team.getMovesetCoverage(type, "Special")}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

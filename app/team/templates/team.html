@@ -1,18 +1,21 @@
-<div ng-init="init()" ng-controller="TeamCtrl">
-    <div class="navbar navbar-white">
+<div ng-init="init()">
+
+    <!-- ==========  Team Navigation  ========== -->
+    <div class="navbar navbar-white" style="margin-bottom:0; border-bottom: 1px solid #ccc; border-radius: 0">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
                     <ul class="nav navbar-nav">
-                        <li>
-                            <a href="#" ui-sref="teambuilder">
-                                Show Team
-                            </a>
-                        </li>
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Team <span class="caret"></span></a>
                           <ul class="dropdown-menu" role="menu">
-
+                            <li ng-click="showTeam()">
+                                <a href="#">
+                                     <i class="fa fa-eye"></i>
+                                     Show Team
+                                 </a>
+                            </li>
+                            <li class="divider"></li>
                             <li ng-click="importTeam()">
                                 <a href="#">
                                      <i class="glyphicon glyphicon-import"></i>
@@ -25,7 +28,7 @@
                                     Export Team
                                 </a>
                             </li>
-                            <li ng-click="saveTeam">
+                            <li ng-click="saveTeam()">
                                 <a href="#">
                                     <i class="glyphicon glyphicon-floppy-save"></i>
                                     Save Team
@@ -47,59 +50,69 @@
                             </li>
                           </ul>
                         </li> <!-- team -->
-                        
-                        
                         <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Add Pokemon <span class="caret"></span></a>
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pokemon<span class="caret"></span></a>
                           <ul class="dropdown-menu" role="menu">
-                            <li ng-click="addPokemon('ou')">
+                           <li ng-click="addPokemon()">
+                                <a href="#">
+                                     Add Pokemon ...
+                                 </a>
+                            </li>
+                             <li class="divider"></li>
+                            <li ng-click="addPokemon({format: 'ou'})">
                                 <a href="#">
                                      OU Pokemon
                                  </a>
                             </li>
-                            <li ng-click="addSetupSweeperPokemon()">
+                             <li class="divider"></li>
+                            <li ng-click="addPokemon({group: 'setupsweeper'})">
                                 <a href="#">
                                     Setup Sweeper (Physical / Special)
                                 </a>
                             </li>
-                            <li ng-click="addSpinner()">
+                            <li ng-click="addPokemon({ group: 'specialwall'})">
+                                <a href="#">
+                                    Special Wall
+                                </a>
+                            </li>
+                            <li ng-click="addPokemon({ group: 'physicalwall'})">
+                                <a href="#">
+                                    Physical Wall
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li ng-click="addPokemon({group: 'spinner'})">
                                 <a href="#">
                                     Spinner (Rapid Spin / Defog)
                                 </a>
                             </li>
 
-                            <li ng-click="addDualScreener()">
+
+                            <li ng-click="addPokemon({ group: 'voltturn'})">
                                 <a href="#">
-                                    Dual Screener
+                                     U-Turn / Volt Switch / Parting Shot
                                 </a>
                             </li>
-
-                            <li ng-click="addMegaPokemon()">
+                           
+                            <li ng-click="addPokemon({group: 'mega'})">
                                 <a href="#">
                                     Mega Pokemon
                                 </a>
                             </li>
 
-                            <li ng-click="addSpecialWallPokemon()">
-                                <a href="#">
-                                    Special Wall
-                                </a>
-                            </li>
-                            <li ng-click="addPhysicalWallPokemon()">
-                                <a href="#">
-                                    Physical Wall
-                                </a>
-                            </li>
-                            <li ng-click="addStealthRockerPokemon()">
+                            
+                             <li class="divider"></li>
+                            <li ng-click="addPokemon({ group: 'stealthrocker'})">
                                 <a href="#">
                                      Stealth Rocker
                                 </a>
                             </li>
-                            <li ng-click="addMomentumPokemon()">
+                             <li ng-click="addPokemon({group: 'dualscreener'})">
                                 <a href="#">
-                                     U-Turn / Volt Switch / Parting Shot
+                                    Dual Screener
                                 </a>
                             </li>
+
                           </ul>
                         </li>
                         
@@ -108,14 +121,10 @@
                           <ul class="dropdown-menu" role="menu">
                             <li ui-sref="teambuilder.typechart">
                                 <a href="#">
-                                     Type Chart
+                                     Type Resistances
                                  </a>
                             </li>
-                            <li ui-sref="teambuilder.weaknesses_resistances">
-                                <a href="#">
-                                    Weaknesses &amp; Resistances
-                                </a>
-                            </li>
+                          
                             <li ui-sref="teambuilder.moveset_coverage">
                                 <a href="#">
                                     Moveset Coverage
@@ -130,7 +139,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#" ui-sref="teambuilder.settings">
+                        <a href="#" ui-sref="teambuilder.publish">
                             Publish
                         </a>
                     </li>
@@ -141,27 +150,42 @@
                     </li>
                 </ul>
                 <ul class="pull-right nav navbar-nav"  style="padding-top: 10px">
-                    <li ng-repeat="pokemon in team">
-                        <img ng-src="{{pokemon.sprite}}" style="height: 35px;">
+                    <li class="team-name">
+                        <strong><i ng-if="team.private" class="fa fa-lock"></i> {{team.name}} <span class="text-warning"><small>Format: {{team.tier}}</small></span></strong>
                     </li>
                 </ul>
                 </div>
             </div>
         </div>
     </div>
-    <ui-view ng-transcluded>
-        <div ng-if="team.length > 0" class="container">
-          <div class="row">
-              <div>
-                <pokemon-card ng-repeat="pokemon in team" pokemon="pokemon">
-                </pokemon-card>
-              </div>
-          </div>
-        </div>
-        <div ng-if="team.length == 0" class="container">
-        	<div class="btn btn-lg btn-primary" ng-click="addPokemon()">
-                <i class="glyphicon glyphicon-plus"></i> Add Pokemon
+    <!-- ==========  End Team Navigation  ========== -->
+    <div class="row">
+        <!--<div class="col-xs-4 col-sm-2">
+            <div class="sub-navigation">
+                <ul>
+                    <li>
+                        <a href="#" class="btn"><i class="fa fa-eye"></i></a>
+                    </li>
+                </ul>
             </div>
+        </div>-->
+        <div class="col-xs-8 col-sm-12">
+             <ui-view ng-transcluded>
+             <div ng-if="team.pokemons.length > 0" class="container">
+              <div class="row">
+                  <div>
+                    <pokemon-card ng-repeat="pokemon in team.pokemons" pokemon="pokemon">
+                    </pokemon-card>
+                  </div>
+              </div>
+            </div>
+            <div ng-if="team.length == 0" class="container">
+                <div class="btn btn-lg btn-primary" ng-click="addPokemon()">
+                    <i class="glyphicon glyphicon-plus"></i> Add Pokemon
+                </div>
+            </div>
+            </ui-view>
         </div>
-    </ui-view>
+    </div>
+
 </div>

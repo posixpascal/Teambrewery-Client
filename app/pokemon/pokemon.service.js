@@ -1,47 +1,79 @@
-angular.module("teambreweryApp").factory("Pokemon", ["$http", function($http){
-    var API_PATH = "http://localhost:3000/api/pokemon/";
+angular.module("teambreweryApp").factory("Pokemon", ["$http", "api", function($http, api){
+    'use strict';
+
     var Pokemon = function(data){
+        this.moveset = {};
         if (typeof data !== "undefined"){
 
             this.baseStats = data.basestats;
-            this.sprite = data.sprite_url
+            this.basestats = data.basestats; // ugh. terrible...
+            
+            this.sprite = data.sprite_url;
             this.name = data.species;
             this.types = data.typing;
             this.abilities = data.abilities;
-            this.moveset = {};
+            this.moveset = {
+                moves: []
+            };
             this.moves = [];
+            this.id = data.id;
+
+            this.typingDetails = data.type_details;
+
             if (typeof data.movesets !== "undefined"){
                 this.moveset = data.movesets[0];
                 if (typeof this.moveset !== "undefined"){
-                    this.moves = this.moveset.moves;
+                    this.moveset.moves = _.sample(this.moveset.moves, 4);
                 }
             } 
-            if (this.moves.length == 0 && typeof data.random_battle_moves !== "undefined") { // use random moves instead.
-                this.moves = data.random_battle_moves;
+            else if (this.moveset.moves.length == 0 && typeof data.random_battle_moves !== "undefined") { // use random moves instead.
+                this.moveset.moves = _.sample(data.random_battle_moves, 4);
             }
+            
             if (typeof data.nature !== "undefined"){
                 this.moveset.nature = data.nature;
             }
+            
             if (typeof data.ev_spread !== "undefined"){
                 this.moveset.ev_spread = data.ev_spread;
             }
+
             this.request_data = data;
         }
         return this;
     };
+
+    Pokemon.getRandomByFormat = function(format){
+        return Pokemon.get('pokemon/random/format/' + format);
+    }
+
+    Pokemon.getAll = function(page){
+        if (typeof page === "undefined") page = 1;
+        return Pokemon.get('pokemon/all?page=' + page);
+    }
+
+    Pokemon.prototype.getSprite = function(){
+        return this.sprite;
+    }
     
+    Pokemon.byID = function(id){
+        return Pokemon.get('pokemon/id/' + id)
+    }
+
     Pokemon.prototype.getTyping = function(){
         return this.request_data.typing;
     }
     
     Pokemon.get = function(identifier){
-        return $http.get(API_PATH + identifier, function(data){
-            return new Pokemon(data);
-        });
+        return $http.get(api(identifier));
     }
     
     Pokemon.getRandomOU = function(){
-        return Pokemon.get('random/ou');
+        return Pokemon.get('pokemon/random/format/ou');
+    }
+
+    Pokemon.autocomplete = function(name){
+        return $http.get(api("pokemon/autocomplete/" + name));
     }
     
     

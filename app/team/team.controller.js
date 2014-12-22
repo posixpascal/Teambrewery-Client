@@ -1,19 +1,50 @@
 'use strict';
 
 angular.module('teambreweryApp')
-  .controller('TeamCtrl',['$scope', '$http', 'Pokemon', '$stateParams', '$modal', '$rootScope', 'typeChart', 'Team', 'text2team', function ($scope, $http, Pokemon, $stateParams, $modal, $rootScope, typeChart, Team, text2team) {
-      $scope.team = []; 
+  .controller('TeamCtrl', function ($scope, $http, Pokemon, $state, $stateParams, $modal, $rootScope, typeChart, Team, text2team, Toaster) {
+      $scope.team = new Team(); 
       $scope.types = Object.keys(typeChart);
-    
-     
+      
+      
       $scope.saveSettings = function(s){
           $scope.settings = angular.copy(s);
           $.jStorage.set('settings', $scope.settings);
-      }
+      };
+
       $scope.load = function(){
           console.log("TeamController loaded");
-      }
-    
+           if ($stateParams.id){ 
+
+              Team.getByID($stateParams.id).success(function(team){
+
+                  $scope.team = new Team(team.team);
+
+                  if ($scope.team.populate && $scope.team.pokemons.length == 0){
+                    $scope.randomizeTeam();
+                  }
+
+                  if ($scope.team.pokemons.length > 0){
+                    _.map($scope.team.pokemons, function(p){
+                      return new Pokemon(p);
+                    });
+                  }
+              });
+          }
+          
+          else {
+              $scope.randomizeTeam();
+              
+          }
+      };
+      
+      $scope.showTeam = function(){
+        $state.go('teambuilder', {id: $scope.team.id || ""});
+
+      };
+
+
+
+
       $scope.init = function(){
           var default_settings = {
               typeChart: {
@@ -33,31 +64,40 @@ angular.module('teambreweryApp')
           $scope.settings = $.jStorage.get('settings', default_settings);
           $scope.customSettings = angular.copy($scope.settings);
           
-          $scope.$watch(function(){
-              return $scope.team.length;
-          }, $scope.getTeamWeakness);
-          
-          if ($stateParams.id){ 
-              $http.get('/api/team/get/' + $stateParams.id).success(function(data){
-                  $scope.team = JSON.parse(data[0].team);
-              });
-          }
-          
-          else {
-              $scope.randomizeTeam();
-              
-          }
+         
       }
-      
+
       $scope.randomizeTeam = function(){
-          $scope.team = [];
+          $scope.team.pokemons = [];
           for (var i = 0; i < 6; i++){
-              Pokemon.getRandomOU().success(function(data){
-                  $scope.team.push(new Pokemon(data.pokemon));
+              Pokemon.getRandomByFormat($scope.team.tier).success(function(data){
+                $scope.team.pokemons.push(new Pokemon(data.pokemon));
               });
-          }
-          
+          }    
       }
+
+
+      $scope.saveTeam = function(){
+        $scope.team.save().success(function(){
+          Toaster.success("Team successfully saved!");
+        });
+      }
+
+      $scope.addPokemon = function(data){
+        if (typeof data === "undefined"){
+          return $state.go('teambuilder.pokemons');
+        } 
+
+        var stateOptions = {
+          group: (typeof data["format"] === "undefined") ? "group" : "format",
+          query: data[_.keys(data)[0]]
+        }
+
+        $state.go('teambuilder.pokemons.list', stateOptions);
+      };
+      
+      /**
+      
       
       $scope.clearTeam = function(){
           $scope.team = [];
@@ -76,31 +116,6 @@ angular.module('teambreweryApp')
       
       $scope.addPokemon = function(){
 
-          var modalScope = $rootScope.$new();
-          
-          var scope = {
-              getPokemonByName: function(name){
-                  return $http.get("/api/pokemon/by-name/" + name).then(function(res){
-                      return res.data;
-                  });
-              },
-              addPokemon: function(pokemon){
-                  $scope.team.push(pokemon);
-                  $scope.$theModal.close();
-                  
-              }
-          }
-          scope.setActivePokemon = function($item, $model, $label){
-               modalScope.activePokemon = $model;
-          };
-          
-          angular.extend(modalScope, scope);
-          $scope.$theModal =  $modal.open({
-            templateUrl: 'components/modal/pokemon.add.modal.html',
-            windowClass: "modal-default",
-            scope: modalScope
-          });
-      }
   
       $scope.saveTeam = function(){
           Team.save($scope.team);
@@ -257,6 +272,6 @@ angular.module('teambreweryApp')
 
 
       
-      
+      */
       $scope.load();
-  }]);
+  });

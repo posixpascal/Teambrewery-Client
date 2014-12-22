@@ -1,0 +1,26 @@
+.pokemon-table {
+	thead tr th {
+		vertical-align: middle;
+		text-align: center;
+		.pokemon_sprite {
+			max-height: 36px;
+		}
+	}
+	tr.type {
+		border: none;
+		td {
+			border-color: rgba(33,33,33,.1);
+			width: 11.11111%;
+		}
+	}
+	tr:nth-last-child(0) {
+		border-bottom: 1px solid rgba(33,33,33,.1);
+	}
+	.cell-number {
+		text-align: center;
+		&.danger-cell {
+			border: none;
+			box-shadow: inset 0px 0px 30px 0px rgba(255,0,0,.4);
+		}
+	}
+}

@@ -1,0 +1,22 @@
+<ui-view>
+	<div class="header-bar">
+		<div class="container">
+			<h2>Your <span class="highlight">Pokemon Teams</span><span class="pull-right">New Team</span></h2>
+		</div>
+	</div>
+
+	<div class="container content-container">
+		<div class="field-bar" ng-repeat="team in teams">
+			<div>
+					{{team.name}} {{team.format}} 
+					<span style="float:right;">
+						<a ng-click="editTeam(team.id)" class="btn btn-info">Edit team</a>
+						<a ng-click="deleteTeam(team.id)" class="btn btn-danger">Delete team</a>
+					</span>
+				
+			</div>
+			<hr />
+			<img ng-src="{{pokemon.getSprite()}}" ng-repeat="pokemon in team.pokemons">
+		</div>
+	</div>
+</ui-view>

@@ -1,1 +1,65 @@
-<weakness-table />
+<div class="header-bar">
+	<div class="container">
+		<h2>Your teams type chart</h2>
+	</div>
+</div>
+<div class="container">
+	<div class="field-bar">
+		<div class="alert alert-info" role="alert">
+			<strong>Hey</strong>, did you know that you can personalize your table chart? <br/>Your changes will be saved to your computer, so when you visit us next time, you don't have to reconfigure all over again. :)
+		</div>
+		
+		
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingOne">
+					<h4 class="panel-title text-center">
+					<a data-toggle="collapse" data-parent="#accordion" ng-click="toggleCollapse('#collapseOne')" aria-expanded="true" aria-controls="collapseOne">
+						Configure your type chart
+					</a>
+					</h4>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+					<div class="panel-body">
+						<form>
+							<div class="row">
+								
+								
+								<div class="col-xs-12 col-sm-4">
+									<b>Table options</b>
+									<ul class="no-list checkbox-list">
+										<li>Table Mode: <ul class="no-list">
+											<li><input type="radio" name="tableMode" ng-model="customSettings.typeChart.tableMode" value="types"> Prioritize Types</li>
+											<li><input type="radio" name="tableMode" ng-model="customSettings.typeChart.tableMode" value="pokemon"> Prioritize Pokemon</li>
+										</ul>
+									</li>
+									<li><input type="checkbox" ng-model="customSettings.typeChart.showPokemon"> Show Pokemon images</li>
+								</ul>
+							</div>
+							
+							<div class="col-xs-12 col-sm-4">
+								<b>Configure Types Table</b>
+								<ul class="no-list checkbox-list">
+									<li><input type="checkbox" ng-model="customSettings.typeChart.rows.immunity"> Immunity</li>
+									<li><input type="checkbox" ng-model="customSettings.typeChart.rows.quadResistant"> Quad Resistant</li>
+									<li><input type="checkbox" ng-model="customSettings.typeChart.rows.resistant"> Resistant</li>
+									<li><input type="checkbox" ng-model="customSettings.typeChart.rows.neutral"> Neutral</li>
+									<li><input type="checkbox" ng-model="customSettings.typeChart.rows.effective"> Effective</li>
+									<li><input type="checkbox" ng-model="customSettings.typeChart.rows.superEffective"> Super Effective</li>
+								</ul>
+							</div>
+							
+							<div class="col-xs-12 col-sm-4">
+								<b>Configure Pokemon Table</b>
+								- no settings yet
+							</div>
+						</div>
+						<a ng-click="saveSettings(customSettings)" class="btn btn-success btn-xs">Save settings</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<weakness-table team="{{team}}"></weakness-table>
+</div>
