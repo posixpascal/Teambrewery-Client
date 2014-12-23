@@ -7611,6 +7611,11 @@ table tr td {
 .modal-danger .modal-header {
   background: #d9534f; }
 
+.modal-pokemon {
+  width: 100%;
+  height: 100%;
+  border-radius: none; }
+
 .stat-table {
   font-size: 11px; }
 

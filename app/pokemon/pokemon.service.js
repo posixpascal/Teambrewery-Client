@@ -3,11 +3,12 @@ angular.module("teambreweryApp").factory("Pokemon", ["$http", "api", function($h
 
     var Pokemon = function(data){
         this.moveset = {};
+        this.pokedex = 0;
         if (typeof data !== "undefined"){
 
             this.baseStats = data.basestats;
             this.basestats = data.basestats; // ugh. terrible...
-            
+            this.pokedex = data.pokedex;
             this.sprite = data.sprite_url;
             this.name = data.species;
             this.types = data.typing;

@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('teambreweryApp')
-  .controller('TeamCtrl', function ($scope, $http, Pokemon, $state, $stateParams, $modal, $rootScope, typeChart, Team, text2team, Toaster) {
+  .controller('TeamCtrl', function ($scope, $http, Pokemon, $state, $stateParams, $modal, $rootScope, typeChart, Team, text2team, Toaster, api) {
       $scope.team = new Team(); 
       $scope.types = Object.keys(typeChart);
       
-      
+
       $scope.saveSettings = function(s){
           $scope.settings = angular.copy(s);
           $.jStorage.set('settings', $scope.settings);
@@ -65,7 +65,7 @@ angular.module('teambreweryApp')
           $scope.customSettings = angular.copy($scope.settings);
           
          
-      }
+      };
 
       $scope.randomizeTeam = function(){
           $scope.team.pokemons = [];
@@ -74,26 +74,99 @@ angular.module('teambreweryApp')
                 $scope.team.pokemons.push(new Pokemon(data.pokemon));
               });
           }    
-      }
+      };
 
 
       $scope.saveTeam = function(){
         $scope.team.save().success(function(){
           Toaster.success("Team successfully saved!");
         });
-      }
+      };
+
+      $scope.importTeam = function(){
+          
+          $scope.importModal = $modal.open({
+            templateUrl: 'components/modal/team.import.modal.html',
+            windowClass: "modal-default",
+            scope: $scope
+          });
+              
+
+      };
+
+      $scope.addPokemonsCollection = [];
+      $scope.addPokemonServer = function(tableState, tableController){
+        $http.get(api("/pokemon/autocomplete/" + tableState.search.predicateObject.$)).success(function(p){
+          $scope.addPokemonsCollection = [];
+          _.each(p.pokemon, function(pokemon){
+            $scope.addPokemonsCollection.push(new Pokemon(pokemon));
+          });
+        });
+      };
+
+      $scope.clearTeam = function(){
+        $scope.team.pokemons = [];
+      };
+
+
+      $scope.addPokemonIsLoading = false;
 
       $scope.addPokemon = function(data){
+        if (typeof data !== "undefined" && typeof data.pokemon !== "undefined"){
+          // add pokemon to db
+          $scope.team.pokemons.push(data.pokemon);
+          $scope.addPokemonModal.close();
+          return;
+        }
+        $scope.addPokemonIsLoading = true;
         if (typeof data === "undefined"){
-          return $state.go('teambuilder.pokemons');
+          $http.get(api("pokemon/all")).success(function(p){
+            $scope.addPokemonsCollection = [];
+            _.each(p.pokemons, function(pokemon){
+              $scope.addPokemonsCollection.push(new Pokemon(pokemon));
+              
+            });
+            $scope.addPokemonIsLoading = false;
+          });
+          return $scope.addPokemonModal = $modal.open({
+            templateUrl: 'components/modal/pokemon.add.modal.html',
+            windowClass: "modal-pokemon",
+            scope: $scope,
+            size: "lg"
+          });
+
+
+          //return $state.go('teambuilder.pokemons');
         } 
 
         var stateOptions = {
           group: (typeof data["format"] === "undefined") ? "group" : "format",
           query: data[_.keys(data)[0]]
+        };
+
+        $scope.addPokemonModal = $modal.open({
+          templateUrl: 'components/modal/pokemon.add.modal.html',
+          windowClass: "modal-default",
+          scope: $scope,
+          size: "lg"
+        });
+        if (stateOptions.group === "format") {
+          $http.get(api("pokemons/format/" + data["format"])).success(function(data){
+            $scope.addPokemonsCollection = [];
+            _.each(data.pokemon, function(pokemon){
+              $scope.addPokemonsCollection.push(new Pokemon(pokemon));
+            });
+            $scope.addPokemonIsLoading = false;
+          });
         }
 
-        $state.go('teambuilder.pokemons.list', stateOptions);
+        //$state.go('teambuilder.pokemons.list', stateOptions);
+      };
+
+      $scope.getPokemonByName = function(name){
+        return $http.get(api("/pokemon/autocomplete/" + name)).success(function(data){
+          return data.pokemon;
+        });
       };
       
       /**

@@ -3,29 +3,41 @@
   <h4>Add Pokemon</h4>
 </div>
 <div class="modal-body">
-  <p>Pokemon Name</p>
-  <input type="text" ng-model="newPokemon.name" placeholder="Enter a Pokemon name (Auto-Complete supported)" typeahead="pokemon as pokemon.name for pokemon in getPokemonByName($viewValue)" typeahead-on-select="setActivePokemon($item, $model, $label)" typeahead-loading="loadingLocations" typeahead-wait-ms="300" typeahead-template-url="/app/autocomplete_template.html" class="form-control">
-  
-  <div ng-if="!!activePokemon">
-     <hr />
-     <center>
-         <h3>{{activePokemon.name}}</h3>
-         <img ng-src="/assets/pokemon_sprites/{{activePokemon.image}}">
-         <br />
-         <div class="pokemon-type">
-             <span class="type" ng-class="activePokemon.types[0].toLowerCase()">{{activePokemon.types[0]}}</span>
-             <span ng-if="!!activePokemon.types[1]">
-                 /
-                 <span class="type" ng-class="activePokemon.types[1].toLowerCase()">{{activePokemon.types[1]}}</span>
-             </span>
-         </div>
-     </center>
-     
-     
-      
-      
-      
-  </div>
+  <table st-table="addPokemonsCollection"  st-pipe="addPokemonServer" class="table table-striped">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Pokedex</th>
+      <th st-sort="species">Pokemon</th>
+      <th>Typing</th>
+      <th>Tier</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody ng-hide="addPokemonIsLoading">
+    <tr ng-repeat="pokemon in addPokemonsCollection">
+      <td><img height="25px" ng-src="{{pokemon.sprite}}"></td>
+      <td>{{pokemon.pokedex}}</td>
+      <td>{{pokemon.name}}</td>
+      <td><pokemon-typing /></pokemon-typing>
+      <td>{{pokemon.format}}</td>
+      <td><a ng-click="addPokemon({pokemon:pokemon})" class="btn btn-info">Add Pokemon</a></td>
+    </tr>
+    </tbody>
+    <tbody ng-show="addPokemonIsLoading">
+        <tr>
+          <td colspan="6" class="loader text-center">
+          <h5>Loading... Be patient</h5>
+          <ul class="bokeh">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul></td>
+        </tr>
+    </tbody>
+  </table>
+
 </div>
 <div class="modal-footer">
   <button class="btn btn-success" ng-click="addPokemon(activePokemon)">Add Pokemon</button>

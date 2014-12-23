@@ -8,8 +8,8 @@ angular.module('teambreweryApp', [
   'ui.router',
   'ui.bootstrap',
     'angular-loading-bar',
-    'cgNotify'
-
+    'cgNotify',
+    'smart-table'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider
