@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('teambreweryApp')
-  .controller('MainCtrl', function ($scope, $http, $auth) {
+  .controller('MainController', function ($scope, $http, $auth) {
     	$scope.$auth = $auth;
   });

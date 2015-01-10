@@ -1,4 +1,4 @@
-<div ng-init="init()">
+<div>
 
     <!-- ==========  Team Navigation  ========== -->
     <div class="navbar navbar-white" style="margin-bottom:0; border-bottom: 1px solid #ccc; border-radius: 0">
@@ -9,7 +9,7 @@
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Team <span class="caret"></span></a>
                           <ul class="dropdown-menu" role="menu">
-                            <li ng-click="showTeam()">
+                            <li ui-sref="team.pokemon">
                                 <a href="#">
                                      <i class="fa fa-eye"></i>
                                      Show Team
@@ -119,19 +119,19 @@
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Team Details <span class="caret"></span></a>
                           <ul class="dropdown-menu" role="menu">
-                            <li ui-sref="teambuilder.typechart">
+                            <li ui-sref="team.typechart">
                                 <a href="#">
                                      Type Resistances
                                  </a>
                             </li>
                           
-                            <li ui-sref="teambuilder.moveset_coverage">
+                            <li ui-sref="team.moveset_coverage">
                                 <a href="#">
                                     Moveset Coverage
                                 </a>
                             </li>
 
-                            <li ui-sref="teambuilder.playfield">
+                            <li ui-sref="team.playfield">
                                 <a href="#">
                                     Simulate Common Threats
                                 </a>
@@ -139,12 +139,12 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#" ui-sref="teambuilder.publish">
+                        <a href="#" ui-sref="team.publish">
                             Publish
                         </a>
                     </li>
                     <li>
-                        <a href="#" ui-sref="teambuilder.settings">
+                        <a href="#" ui-sref="team.settings">
                             Settings
                         </a>
                     </li>
@@ -159,7 +159,7 @@
         </div>
     </div>
     <!-- ==========  End Team Navigation  ========== -->
-    <div class="row">
+    <div class="row-fluid">
         <!--<div class="col-xs-4 col-sm-2">
             <div class="sub-navigation">
                 <ul>
@@ -169,21 +169,10 @@
                 </ul>
             </div>
         </div>-->
-        <div class="col-xs-8 col-sm-12">
-             <ui-view ng-transcluded>
-             <div ng-if="team.pokemons.length > 0" class="container">
-              <div class="row">
-                  <div>
-                    <pokemon-card ng-repeat="pokemon in team.pokemons" pokemon="pokemon">
-                    </pokemon-card>
-                  </div>
-              </div>
-            </div>
-            <div ng-if="team.length == 0" class="container">
-                <div class="btn btn-lg btn-primary" ng-click="addPokemon()">
-                    <i class="glyphicon glyphicon-plus"></i> Add Pokemon
-                </div>
-            </div>
+        <div class="">
+            <ui-view>
+            
+        
             </ui-view>
         </div>
     </div>

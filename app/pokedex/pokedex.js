@@ -6,10 +6,10 @@ angular.module('teambreweryApp')
       .state('pokedex', {
         url: '/pokedex',
         templateUrl: 'app/pokedex/templates/pokedex.html',
-        controller: 'PokedexCtrl'
+        controller: 'PokedexController'
       }).state('pokedex.view', {
           url: '/pokemon/:pokemon',
           templateUrl: 'app/pokedex/templates/pokemon.view.html',
-          controller: 'PokedexCtrl'
+          controller: 'PokedexController'
       });
   });

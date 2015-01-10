@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('teambreweryApp')
-  .controller('TeamsCtrl', function ($scope, $http, $state, Team) {
+  .controller('TeamsController', function ($scope, $http, $state, Team) {
   	$scope.newTeam = {
   		name: "Untitled",
   		tier: "OU"
@@ -18,7 +18,7 @@ angular.module('teambreweryApp')
 
   	$scope.createTeam = function(){
   		Team.create($scope.newTeam).success(function(data){
-  			$state.go('teambuilder', {id: data.team.id})
+  			$state.go('team', {id: data.team.id})
   		});
   	};
 
@@ -27,7 +27,7 @@ angular.module('teambreweryApp')
     };
 
     $scope.editTeam = function(team){
-      $state.go('teambuilder', {id: team});
+      $state.go('team', {id: team});
     };
 
     $scope.load();

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('teambreweryApp')
-  .controller('PokedexCtrl', function ($scope, $http, Pokemon, $stateParams, $state) {
+  .controller('PokedexController', function ($scope, $http, Pokemon, $stateParams, $state) {
   	$scope.query = "";
   	$scope.pokemon = false;
   	$scope.stats = {

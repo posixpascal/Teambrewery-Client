@@ -7,6 +7,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import './loader.scss';
 @import "./scss/pokemon_table.scss";
 @import './shapes.scss';
+@import './team/team.scss';
 
 .spacer {
     height: 50px;
@@ -152,6 +153,7 @@ table tr td {
 @import 'pokemon/types.scss';
 @import 'scss/pokemon_table.scss';
 @import 'shapes.scss';
+@import 'team/team.scss';
 @import 'modal/modal.scss';
 // endinjector
 

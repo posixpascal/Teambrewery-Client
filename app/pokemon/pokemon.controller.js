@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('teambreweryApp')
-  .controller('PokemonCtrl', function ($scope, $http) {
+  .controller('PokemonController', function ($scope, $http) {
 
   });

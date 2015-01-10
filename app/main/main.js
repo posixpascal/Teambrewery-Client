@@ -6,11 +6,11 @@ angular.module('teambreweryApp')
       .state('main', {
         url: '/',
         templateUrl: 'app/main/templates/intro.html',
-        controller: 'MainCtrl'
+        controller: 'MainController'
       }).state('main.teams', {
       	url: 'teams',
       	templateUrl: 'app/main/teams/templates/list.html',
-      	controller: 'TeamsCtrl'
+      	controller: 'TeamsController'
       }).state('main.teams.new', {
       	url: '/new',
       	templateUrl: 'app/main/teams/templates/new.html',

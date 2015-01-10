@@ -7209,6 +7209,24 @@ pre.prettyprint {
     display: block;
     margin-bottom: 10px; }
 
+.team-view {
+  width: 100%;
+  background-color: #fff; }
+  .team-view .pokemon-list {
+    padding-top: 15px;
+    padding-bottom: 15px; }
+    .team-view .pokemon-list .pokemon-spot {
+      text-align: center;
+      display: inline-block;
+      width: 16.666666667%; }
+      .team-view .pokemon-list .pokemon-spot img {
+        height: 30px;
+        width: auto;
+        display: block;
+        margin: 0 auto; }
+      .team-view .pokemon-list .pokemon-spot span {
+        display: block; }
+
 .spacer {
   height: 50px; }
 
@@ -7476,6 +7494,23 @@ table tr td {
   background-color: #EE6456;
   color: #fff; }
 
+.light-green {
+  background-color: #B2E097; }
+
+.block.footer {
+  background-color: #222;
+  color: #fff;
+  padding-top: 10px !important; }
+  .block.footer .monotone-logo {
+    margin-top: 10px;
+    max-width: 263px; }
+  .block.footer h4 {
+    text-align: left; }
+  .block.footer ul {
+    list-style: none; }
+    .block.footer ul, .block.footer ul li {
+      padding-left: 0; }
+
 .type {
   padding: 3px 8px;
   border: 1px solid #000;
@@ -7617,6 +7652,24 @@ table tr td {
   .field-bar b {
     display: block;
     margin-bottom: 10px; }
+
+.team-view {
+  width: 100%;
+  background-color: #fff; }
+  .team-view .pokemon-list {
+    padding-top: 15px;
+    padding-bottom: 15px; }
+    .team-view .pokemon-list .pokemon-spot {
+      text-align: center;
+      display: inline-block;
+      width: 16.666666667%; }
+      .team-view .pokemon-list .pokemon-spot img {
+        height: 30px;
+        width: auto;
+        display: block;
+        margin: 0 auto; }
+      .team-view .pokemon-list .pokemon-spot span {
+        display: block; }
 
 .modal-primary .modal-header,
 .modal-info .modal-header,
