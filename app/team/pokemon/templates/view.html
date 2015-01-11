@@ -1,3 +1,18 @@
 <div class="team-view pokemon-view" ng-controller="TeamPokemonController">
-{{pokemon.name}}
+	<div ng-if="pokemon" class="container">
+		<div class="row">
+			<div class="col-xs-3">
+				<img ng-src="{{pokemon.getSprite()}}">
+			</div>
+			<div class="col-xs-9">
+				<h3>{{pokemon.name}}</h3>
+				<div><pokemon-typing></pokemon-typing></div>
+
+				<div><pokemon-evspread></pokemon-evspread></div>
+			</div>
+		</div>
+	</div>
+	<div ng-if="!pokemon">
+
+	</div>
 </div>

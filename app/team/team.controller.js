@@ -19,7 +19,7 @@ angular.module('teambreweryApp')
 
                     $scope.team = new Team(team.team);
 
-                    if ($scope.team.populate && $scope.team.pokemons.length == 0) {
+                    if ($scope.team.populate && $scope.team.pokemons.length === 0) {
                         $scope.randomizeTeam();
                     }
 

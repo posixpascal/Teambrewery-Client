@@ -1,0 +1,28 @@
+<div class="pokemon-evspread">
+	<table width="400px" ng-if="pokemon.moveset && pokemon.moveset.ev_spread" class="table table-bordered table-small table-evspread">
+		<thead>
+			<tr>
+				<th>HP</th>
+				<th>ATK</th>
+				<th>DEF</th>
+				<th>SPA</th>
+				<th>SPD</th>
+				<th>SPE</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{{pokemon.moveset.ev_spread.hp}}</td>
+				<td>{{pokemon.moveset.ev_spread.atk}}</td>
+				<td>{{pokemon.moveset.ev_spread.def}}</td>
+				<td>{{pokemon.moveset.ev_spread.spa}}</td>
+				<td>{{pokemon.moveset.ev_spread.spd}}</td>
+				<td>{{pokemon.moveset.ev_spread.spe}}</td>
+
+			</tr>
+		</tbody>
+	</table>
+	<div ng-if="!pokemon.moveset || !pokemon.moveset.ev_spread">
+	Kein EVSpread vorhanden. <a ng-click="addEvSpread(pokemon)">EVSpread hinzuf&uuml;gen?</a>
+	</div>
+</div>
