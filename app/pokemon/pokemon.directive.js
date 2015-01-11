@@ -31,5 +31,21 @@ angular.module("teambreweryApp")
             };
         }
     ])
+    .directive('pokemonMoves', [
+        function(){
+            return {
+                restrict: 'E',
+                scope: true,
+                replace: true,
+                templateUrl: 'app/pokemon/templates/pokemon.moves.html',
+                link: function(scope, element, attrs){
+                    if (attrs.pokemon){
+                        scope.pokemon = attrs.pokemon;
+                    }
+                }
+            };
+        }
+    ])
+
 
 ;

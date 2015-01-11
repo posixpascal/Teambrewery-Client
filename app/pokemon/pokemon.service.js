@@ -10,7 +10,8 @@ angular.module("teambreweryApp").factory("Pokemon", ["$http", "api", function($h
             this.basestats = data.basestats; // ugh. terrible...
             this.pokedex = data.pokedex;
             this.sprite = data.sprite_url;
-            this.name = data.species;
+            this.species = data.species;
+            this.name = data.nickname || data.species;
             this.types = data.typing;
             this.abilities = data.abilities;
             this.moveset = {
