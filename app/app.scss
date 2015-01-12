@@ -52,12 +52,10 @@ $color-highlight: #40e509;
         -webkit-transition: color ease-in-out 0.2s, box-shadow ease-in-out 0.2s;
 
     }
-    .navbar-nav > .active > a {
+    .navbar-nav > .active > a, .navbar-nav > .active > a:focus {
         background-color: darken(#323a45, 4%);
         color: $color-highlight;
-        &:hover, &:focus {
-            background: #323a45;
-        }
+
         box-shadow: inset 0 -2px 0 $color-highlight, inset 0 0 5px #000, 0px 0px 1px rgba(255,255,255,.2);
     }
     .navbar-nav > li:hover > a, .navbar-nav .active:hover {
