@@ -159,22 +159,20 @@
         </div>
     </div>
     <!-- ==========  End Team Navigation  ========== -->
-    <div class="row-fluid">
-        <!--<div class="col-xs-4 col-sm-2">
-            <div class="sub-navigation">
-                <ul>
-                    <li>
-                        <a href="#" class="btn"><i class="fa fa-eye"></i></a>
-                    </li>
-                </ul>
+    <ui-view>
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                        <h2>{{team.name}}</h2>
+                        <h3>Tier: {{team.tier}}</h3>
+                    </div>
+                    <div class="col-xs-12 col-sm-8">
+
+                    </div>
+                </div>
             </div>
-        </div>-->
-        <div class="">
-            <ui-view>
-            
-        
-            </ui-view>
         </div>
-    </div>
+     </ui-view>
 
 </div>

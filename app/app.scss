@@ -1,6 +1,8 @@
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 $fa-font-path: "/bower_components/font-awesome/fonts";
 
+$color-highlight: #40e509;
+
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
 @import '../assets/css/rotating-card';
@@ -39,21 +41,29 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
         }
     }
     border: none;
-    background-color: #111;
+    background-color: #323a45;
     border-color: #333;
     color: #fff;
     margin-bottom: 0;
     .navbar-nav a {
-        transition: color ease-in-out 0.2s;
-        -webkit-transition: color ease-in-out 0.2s;
+        color: #f1f1f1 !important;
+        box-shadow: inset 0px 0px 0px $color-highlight;
+        transition: color ease-in-out 0.2s, box-shadow ease-in-out 0.2s;
+        -webkit-transition: color ease-in-out 0.2s, box-shadow ease-in-out 0.2s;
+
     }
     .navbar-nav > .active > a {
-        color: rgb(73, 145, 228);
-        background-color: #000;
+        background-color: darken(#323a45, 4%);
+        color: $color-highlight;
+        &:hover, &:focus {
+            background: #323a45;
+        }
+        box-shadow: inset 0 -2px 0 $color-highlight, inset 0 0 5px #000, 0px 0px 1px rgba(255,255,255,.2);
     }
-    .navbar-nav > li:hover > a {
-        color: lighten(rgb(73, 145, 228), 8%);
-        background-color: #000;
+    .navbar-nav > li:hover > a, .navbar-nav .active:hover {
+        color: $color-highlight;
+        background: #323a45;
+        box-shadow: inset 0px -2px 0px $color-highlight;
     }
 }
 
@@ -164,4 +174,8 @@ table tr td {
 
 .stat-table {
     font-size: 11px;
+}
+
+#loading-bar {
+    background: $color-highlight !important;
 }
