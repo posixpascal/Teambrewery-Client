@@ -1,0 +1,41 @@
+<div>
+	<div ng-if="pokemon.moveset">
+		<!-- move 1 -->
+		<span ng-if="pokemon.moveset.moves[0]">
+			<input type="text" pokemon-move-input="{slot: 1}" value="{{pokemon.moveset.moves[0].name}}" />
+		</span>
+		<!-- no move 1 -->
+		<span ng-if="!pokemon.moveset.moves[0]">
+			<a ng-click="addMove(pokemon, 0)">Add Move...</a>
+		</span>
+
+		<span ng-if="pokemon.moveset.moves[1]">
+			<input type="text" pokemon-move-input value="{{pokemon.moveset.moves[1].name}}" />
+		</span>
+		<!-- no move 2 -->
+		<span ng-if="!pokemon.moveset.moves[1]">
+			<a ng-click="addMove(pokemon, 1)">Add Move...</a>
+		</span>
+
+
+		<span ng-if="pokemon.moveset.moves[2]">
+			<input type="text" pokemon-move-input value="{{pokemon.moveset.moves[2].name}}" />
+		</span>
+		<!-- no move 3 -->
+		<span ng-if="!pokemon.moveset.moves[2]">
+			<a ng-click="addMove(pokemon, 2)">Add Move...</a>
+		</span>
+
+		<span ng-if="pokemon.moveset.moves[3]">
+			<input type="text" pokemon-move-input value="{{pokemon.moveset.moves[3].name}}" />
+		</span>
+		<!-- no move 4 -->
+		<span ng-if="!pokemon.moveset.moves[3]">
+			<a ng-click="addMove(pokemon, 3)">Add Move...</a>
+		</span>
+	</div>
+	<div ng-if="!pokemon.moveset">
+		<a ng-click="addMoveset(pokemon)">Add Moveset for {{pokemon.name}}</a>
+
+	</div>
+</div>
